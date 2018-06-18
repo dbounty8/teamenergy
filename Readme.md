@@ -1,4 +1,4 @@
-# EasyNotes Application
+# Energy Application
 
 Energy app using Node.js, Express and MongoDB and React.
 
