@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     const note = new Note({
         title: req.body.title || "Untitled Note", 
         content: req.body.content
-    });
+    });    
 
     // Save Note in the database
     note.save()
