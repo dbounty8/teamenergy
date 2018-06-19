@@ -30,3 +30,15 @@ exports.createIrradiation = (req, res) => {
         });
     });
 };
+
+// Retrieve and return all cities from the database.
+exports.findAllIrradiation = (req, res) => {
+    Irradiation.find()
+    .then(irradiations => {
+        res.send(irradiations);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving Irradiation."
+        });
+    });
+};

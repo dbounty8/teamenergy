@@ -5,13 +5,6 @@ module.exports = (app) => {
 
     // Create a new Note
     app.post('/notes', notes.create);
-    
-    // Create a new City
-    app.post("/cities", cities.createCity);
-
-    // Create a new Irridation
-    app.post("/irradiation", irradiation.createIrradiation);
-
 
     // Retrieve all Notes
     app.get('/notes', notes.findAll);
@@ -24,4 +17,14 @@ module.exports = (app) => {
 
     // Delete a Note with noteId
     app.delete('/notes/:noteId', notes.delete);
+
+    // Create a new City
+    app.post("/cities", cities.createCity);
+    // Retrieve all Notes
+    app.get('/cities', cities.findAllCities);
+
+    // Create a new Irridation
+    app.post("/irradiation", irradiation.createIrradiation);
+    // Retrieve all Notes
+    app.get('/irradiation', irradiation.findAllIrradiation);
 }

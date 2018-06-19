@@ -27,3 +27,15 @@ exports.createCity = (req, res) => {
         });
     });
 };
+
+// Retrieve and return all cities from the database.
+exports.findAllCities = (req, res) => {
+    Cities.find()
+    .then(cities => {
+        res.send(cities);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving cities."
+        });
+    });
+};
