@@ -31,12 +31,12 @@ mongoose.connect(dbConfig)
     process.exit();
 });
 
-// define a simple route
+// Default route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to Energy application. Keep track of all our queries."});
+    res.json({"message": "Welcome to 123 Energy application. Keep track of all our queries."});
 });
 
-require('./app/routes/note.routes.js')(app);
+require('./app/routes/routes.js')(app);
 
 // listen for requests
 app.listen(3000, () => {
