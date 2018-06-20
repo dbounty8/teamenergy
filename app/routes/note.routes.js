@@ -1,7 +1,9 @@
+// Routes have been moved to routes.js file
+
+
+
 module.exports = (app) => {
     const notes = require('../controllers/note.controller.js');
-    const cities = require('../controllers/cities.controller.js');
-    const irradiation = require('../controllers/irradiation.controller.js');
 
     // Create a new Note
     app.post('/notes', notes.create);
@@ -18,13 +20,4 @@ module.exports = (app) => {
     // Delete a Note with noteId
     app.delete('/notes/:noteId', notes.delete);
 
-    // Create a new City
-    app.post("/cities", cities.createCity);
-    // Retrieve all Notes
-    app.get('/cities', cities.findAllCities);
-
-    // Create a new Irridation
-    app.post("/irradiation", irradiation.createIrradiation);
-    // Retrieve all Notes
-    app.get('/irradiation', irradiation.findAllIrradiation);
 }
