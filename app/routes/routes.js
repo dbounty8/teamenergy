@@ -1,6 +1,7 @@
 const calculate = require('../controllers/calculate');
 const cities = require('../controllers/cities.controller.js');
 const irradiation = require('../controllers/irradiation.controller.js');
+const property = require('../controllers/property.controller.js');
 
 module.exports = (app) => {
 
@@ -24,4 +25,7 @@ module.exports = (app) => {
 
   //Find nearest city from geo coordinates
   app.get('/calculate/:propertyType/:longitude/:latitude', calculate);
+
+   // Create a new Property Type
+   app.post("/property", property.createProperty);
 };
