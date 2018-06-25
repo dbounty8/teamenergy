@@ -12,8 +12,34 @@ exports.createCity = (req, res) => {
     // Create a City
     const cities = new Cities({
         city: req.body.city,
-        lattitude: req.body.lattitude,
-        longitude: req.body.longitude,
+        location: req.body.location,
+        optimal_inclination: req.body.optimal_inclination
+    });
+
+    // Save City in the database
+    cities.save()
+    .then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while creating the City."
+        });
+    });
+};
+
+
+exports.deleteCity = (req, res) => {
+    // Validate request
+    if(!req.body.city) {
+        return res.status(400).send({
+            message: "City content can not be empty"
+        });
+    }
+
+    //Delete City
+    const cities = new Cities({
+        city: req.body.city,
+        coordinates: req.body.coordinates,
         optimal_inclination: req.body.optimal_inclination
     });
 
@@ -38,4 +64,30 @@ exports.findAllCities = (req, res) => {
             message: err.message || "Some error occurred while retrieving cities."
         });
     });
+};
+
+exports.findNearestCity = (req, res) => {
+    console.log(req.params.longitude, req.params.latitude);
+    Cities.find(
+        { location:
+            { $nearSphere:
+                { $geometry:
+                    {
+                        type: "Point",
+                        coordinates: [ req.params.longitude, req.params.latitude ]
+                    },
+                    // $maxDistance: <distance in meters>,
+                    // $minDistance: <distance in meters>
+                }
+            }
+        }
+    ).limit(1)
+    .then(city =>{
+        res.send(city);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving city."
+        });
+    })
 };
