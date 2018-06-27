@@ -36,3 +36,96 @@ exports.createQuery = (req, res) => {
         });
     });
 };
+
+// Retrieve and return all Queries from the database.
+exports.findAllQueries = (req, res) => {
+  query.find()
+  .then(data => {
+      res.send(data);
+  }).catch(err => {
+      res.status(500).send({
+          message: err.message || "Some error occurred while retrieving Queries."
+      });
+  });
+};
+
+// Find a single Query with a propertyTypeId
+exports.findOneQuery = (req, res) => {
+  query.findById(req.params.queryID)
+  .then(data => {
+      if(!data) {
+          return res.status(404).send({
+              message: "propertyType not found with id " + req.params.queryID
+          });            
+      }
+      res.send(query);
+  }).catch(err => {
+      if(err.kind === 'ObjectId') {
+          return res.status(404).send({
+              message: "Query not found with id " + req.params.queryID
+          });                
+      }
+      return res.status(500).send({
+          message: "Error retrieving query with id " + req.params.queryID
+      });
+  });
+};
+
+// Update a propertyType identified by the propertyTypeId in the request
+exports.updateQuery = (req, res) => {
+  // Validate Request
+  if(!req.body.content) {
+      return res.status(400).send({
+          message: "Query content can not be empty"
+      });
+  }
+
+  // Find propertyType and update it with the request body
+  query.findByIdAndUpdate(req.params.queryID, {
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+    postcode: req.body.postcode,
+    city: req.body.city,
+    propertyType: req.body.propertyType
+  }, {new: true})
+  .then(data => {
+      if(!data) {
+          return res.status(404).send({
+              message: "Query not found with id " + req.params.queryID
+          });
+      }
+      res.send(query);
+  }).catch(err => {
+      if(err.kind === 'ObjectId') {
+          return res.status(404).send({
+              message: "Query not found with id " + req.params.queryID
+          });                
+      }
+      return res.status(500).send({
+          message: "Error updating query with id " + req.params.queryID
+      });
+  });
+};
+
+// Delete a propertyType with the specified propertyTypeId in the request
+exports.deleteQuery = (req, res) => {
+  query.findByIdAndRemove(req.params.queryID)
+  .then(data => {
+      if(!data) {
+          return res.status(404).send({
+              message: "Query not found with id " + req.params.queryID
+          });
+      }
+      res.send({message: "Query deleted successfully!"});
+  }).catch(err => {
+      if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+          return res.status(404).send({
+              message: "Query not found with id " + req.params.queryID
+          });                
+      }
+      return res.status(500).send({
+          message: "Could not delete Query with id " + req.params.queryID
+      });
+  });
+};

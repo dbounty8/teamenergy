@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 // Add index: db.cities.createIndex({location:"2dsphere"});
 
 const CitiesSchema = mongoose.Schema({
+    cityID: Number,
     city: String,
     location: {
         // It's important to define type within type field, because

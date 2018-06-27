@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const IrradiationSchema = mongoose.Schema({
+    irridationID: Number,
     city: String,
     month: String,
     hh: Number,

@@ -9,8 +9,15 @@ exports.createCity = (req, res) => {
         });
     }
 
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+      const now = Date.now();
+      const random = getRandomInt(1, 999);
+      const randomID = now+random;
     // Create a City
     const cities = new Cities({
+        cityID: randomID,
         city: req.body.city,
         location: req.body.location,
         optimal_inclination: req.body.optimal_inclination
