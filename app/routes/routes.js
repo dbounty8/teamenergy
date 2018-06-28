@@ -1,6 +1,7 @@
 const calculate = require('../controllers/calculate');
 const cities = require('../controllers/cities.controller.js');
 const irradiation = require('../controllers/irradiation.controller.js');
+const google = require('../controllers/google.controller.js');
 
 module.exports = (app) => {
   // Create a new City
@@ -13,7 +14,7 @@ module.exports = (app) => {
   app.delete('/cities/:city', cities.deleteCity);
 
   // Retrieve all cities
-  app.get('/findNearestCity/:longitude/:latitude', cities.findNearestCity);
+  app.get('/findNearestCity/:lng/:lat', cities.findNearestCity);
 
   // Create a new Irridation
   app.post("/irradiation", irradiation.createIrradiation);
@@ -22,5 +23,8 @@ module.exports = (app) => {
   app.get('/irradiation', irradiation.findAllIrradiation);
 
   // Calculate savings
-  app.get('/calculate/:propertyType/:longitude/:latitude', calculate);
+  app.get('/calculate/:buildingType/:postcode', calculate);
+
+  // Get coordinates
+  app.get('/getCoordinates/:postcode', google.getCoordinates);
 };
