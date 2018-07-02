@@ -1,5 +1,4 @@
 const Irradiations = require('../models/irradiation.model');
-//const mongoose = require('mongoose');
 
 const getTotalIrradiation = (city) => {
   return Irradiations.aggregate([
@@ -10,7 +9,9 @@ const getTotalIrradiation = (city) => {
         count: { $sum: "$hh" }
       }
     }
-  ]);
+  ]).then((sumOfMonthlyAverages) => {
+    return sumOfMonthlyAverages[0].count * 0.001 / 12 * 365;
+  });
 }
 
 module.exports = getTotalIrradiation;

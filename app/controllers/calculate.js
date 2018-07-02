@@ -10,7 +10,7 @@ const calculate = (req, res) => {
   getCoordinates(postcode)
     .then(coordinates => findNearestCity(coordinates.lng, coordinates.lat))
     .then(city => getTotalIrradiation(city[0].city))
-    .then(totalIrradiation => calculateSavings(totalIrradiation[0].count, buildingType))
+    .then(totalIrradiation => calculateSavings(totalIrradiation, buildingType))
     .then(result => {
       res.json({
         "savings": result,

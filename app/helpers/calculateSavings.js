@@ -1,5 +1,6 @@
 
 function calculateSavings(totalIrradiation, buildingType){
+  // return totalIrradiation;
   const roofArea = 10; // Call to properties DB here
   const electrictyPrice = 0.15; // Call to properties DB
   const panelEfficiency = 0.15;
