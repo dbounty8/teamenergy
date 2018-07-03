@@ -30,6 +30,12 @@ module.exports = (app) => {
   // Create a new Property Type
   app.post("/property", property.createProperty);
 
+  // Retrieve all properties
+  app.get('/property', property.findAllProperty);
+
+  // Retrieve all properties
+  app.get('/property/:propertyTypeId', property.findOneProperty);
+
   // Create a new Property Type
   app.post("/queries", queries.createQuery);
 };

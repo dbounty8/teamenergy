@@ -24,7 +24,7 @@ exports.createProperty = (req, res) => {
     });    
 
     // Save Property Type in the database
-    property.save()
+    Property.save()
     .then(data => {
         res.send(data);
     }).catch(err => {
@@ -36,7 +36,7 @@ exports.createProperty = (req, res) => {
 
 // Retrieve and return all Property Type from the database.
 exports.findAllProperty = (req, res) => {
-    property.find()
+    Property.find()
     .then(propertyTypes => {
         res.send(propertyTypes);
     }).catch(err => {
@@ -48,7 +48,7 @@ exports.findAllProperty = (req, res) => {
 
 // Find a single propertyType with a propertyTypeId
 exports.findOneProperty = (req, res) => {
-    property.findById(req.params.propertyTypeId)
+    Property.findById(req.params.propertyTypeId)
     .then(property => {
         if(!property) {
             return res.status(404).send({
@@ -71,16 +71,17 @@ exports.findOneProperty = (req, res) => {
 // Update a propertyType identified by the propertyTypeId in the request
 exports.updateProperty = (req, res) => {
     // Validate Request
-    if(!req.body.content) {
+    if(!req.body.property_type) {
         return res.status(400).send({
             message: "propertyType content can not be empty"
         });
     }
 
     // Find propertyType and update it with the request body
-    property.findByIdAndUpdate(req.params.propertyTypeId, {
-        title: req.body.title || "Untitled propertyType",
-        content: req.body.content
+    Property.findByIdAndUpdate(req.params.propertyTypeId, {
+        property_type: req.body.property_type,
+        roof_area: req.body.roof_area,
+        electricity_price: req.body.electrcity_price
     }, {new: true})
     .then(property => {
         if(!property) {
@@ -103,7 +104,7 @@ exports.updateProperty = (req, res) => {
 
 // Delete a propertyType with the specified propertyTypeId in the request
 exports.deleteProperty = (req, res) => {
-    property.findByIdAndRemove(req.params.propertyTypeId)
+    Property.findByIdAndRemove(req.params.propertyTypeId)
     .then(property => {
         if(!property) {
             return res.status(404).send({
