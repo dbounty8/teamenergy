@@ -2,8 +2,11 @@ const calculate = require('../controllers/calculate');
 const cities = require('../controllers/cities.controller.js');
 const irradiation = require('../controllers/irradiation.controller.js');
 const google = require('../controllers/google.controller.js');
+const property = require('../controllers/property.controller.js');
+const queries = require('../controllers/queries.controller.js');
 
 module.exports = (app) => {
+
   // Create a new City
   app.post("/cities", cities.createCity);
 
@@ -27,4 +30,16 @@ module.exports = (app) => {
 
   // Get coordinates
   app.get('/getCoordinates/:postcode', google.getCoordinates);
+
+  // Create a new Property Type
+  app.post("/property", property.createProperty);
+
+  // Retrieve all properties
+  app.get('/property', property.findAllProperty);
+
+  // Retrieve all properties
+  app.get('/property/:propertyTypeId', property.findOneProperty);
+
+  // Create a new Property Type
+  app.post("/queries", queries.createQuery);
 };
