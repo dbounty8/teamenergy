@@ -1,4 +1,4 @@
-const Property = require('../models/property.model.js');
+const property = require('../models/property.model.js');
 
 // Create and Save a new Property Type
 exports.createProperty = (req, res) => {
@@ -57,7 +57,7 @@ exports.findOneProperty = (req, res) => {
         }
         res.send(property);
     }).catch(err => {
-        if(err.kind === 'ObjectId') {
+        if(err.kind === 'ObjectID') {
             return res.status(404).send({
                 message: "propertyType not found with id " + req.params.propertyTypeId
             });                
@@ -71,7 +71,7 @@ exports.findOneProperty = (req, res) => {
 // Update a propertyType identified by the propertyTypeId in the request
 exports.updateProperty = (req, res) => {
     // Validate Request
-    if(!req.body.content) {
+    if(!req.body.property_type) {
         return res.status(400).send({
             message: "propertyType content can not be empty"
         });
@@ -79,8 +79,9 @@ exports.updateProperty = (req, res) => {
 
     // Find propertyType and update it with the request body
     property.findByIdAndUpdate(req.params.propertyTypeId, {
-        title: req.body.title || "Untitled propertyType",
-        content: req.body.content
+        property_type: req.body.property_type,
+        roof_area: req.body.roof_area,
+        electricity_price: req.body.electricity_price
     }, {new: true})
     .then(property => {
         if(!property) {
@@ -90,7 +91,7 @@ exports.updateProperty = (req, res) => {
         }
         res.send(property);
     }).catch(err => {
-        if(err.kind === 'ObjectId') {
+        if(err.kind === 'ObjectID') {
             return res.status(404).send({
                 message: "propertyType not found with id " + req.params.propertyTypeId
             });                

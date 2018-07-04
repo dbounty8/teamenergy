@@ -11,9 +11,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // implement swagger api documentation
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// const swaggerUi = require('swagger-ui-express');
+// const swaggerDocument = require('./swagger.json');
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 //app.use('/api/v1', router);
 
 // Configuring the database
