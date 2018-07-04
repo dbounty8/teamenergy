@@ -1,4 +1,4 @@
-const property = require('../models/property.model.js');
+const Property = require('../models/property.model.js');
 
 // Create and Save a new Property Type
 exports.createProperty = (req, res) => {
@@ -16,7 +16,7 @@ exports.createProperty = (req, res) => {
     const now = Date.now();
     const random = getRandomInt(1, 999);
     const randomID = now+random;
-    const Property = new Property({
+    const property = new Property({
         propertyTypeID: randomID,
         property_type: req.body.property_type,
         roof_area: req.body.roof_area,
@@ -36,7 +36,7 @@ exports.createProperty = (req, res) => {
 
 // Retrieve and return all Property Type from the database.
 exports.findAllProperty = (req, res) => {
-    property.find()
+    Property.find()
     .then(propertyTypes => {
         res.send(propertyTypes);
     }).catch(err => {
@@ -48,7 +48,7 @@ exports.findAllProperty = (req, res) => {
 
 // Find a single propertyType with a propertyTypeId
 exports.findOneProperty = (req, res) => {
-    property.findById(req.params.propertyTypeId)
+    Property.findById(req.params.propertyTypeId)
     .then(property => {
         if(!property) {
             return res.status(404).send({
@@ -78,7 +78,7 @@ exports.updateProperty = (req, res) => {
     }
 
     // Find propertyType and update it with the request body
-    property.findByIdAndUpdate(req.params.propertyTypeId, {
+    Property.findByIdAndUpdate(req.params.propertyTypeId, {
         property_type: req.body.property_type,
         roof_area: req.body.roof_area,
         electricity_price: req.body.electricity_price
@@ -104,7 +104,7 @@ exports.updateProperty = (req, res) => {
 
 // Delete a propertyType with the specified propertyTypeId in the request
 exports.deleteProperty = (req, res) => {
-    property.findByIdAndRemove(req.params.propertyTypeId)
+    Property.findByIdAndRemove(req.params.propertyTypeId)
     .then(property => {
         if(!property) {
             return res.status(404).send({
