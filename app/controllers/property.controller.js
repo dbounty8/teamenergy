@@ -16,7 +16,7 @@ exports.createProperty = (req, res) => {
     const now = Date.now();
     const random = getRandomInt(1, 999);
     const randomID = now+random;
-    const property = new Property({
+    const Property = new Property({
         propertyTypeID: randomID,
         property_type: req.body.property_type,
         roof_area: req.body.roof_area,
@@ -24,7 +24,7 @@ exports.createProperty = (req, res) => {
     });    
 
     // Save Property Type in the database
-    Property.save()
+    property.save()
     .then(data => {
         res.send(data);
     }).catch(err => {
@@ -36,7 +36,7 @@ exports.createProperty = (req, res) => {
 
 // Retrieve and return all Property Type from the database.
 exports.findAllProperty = (req, res) => {
-    Property.find()
+    property.find()
     .then(propertyTypes => {
         res.send(propertyTypes);
     }).catch(err => {
@@ -48,7 +48,7 @@ exports.findAllProperty = (req, res) => {
 
 // Find a single propertyType with a propertyTypeId
 exports.findOneProperty = (req, res) => {
-    Property.findById(req.params.propertyTypeId)
+    property.findById(req.params.propertyTypeId)
     .then(property => {
         if(!property) {
             return res.status(404).send({
@@ -104,7 +104,7 @@ exports.updateProperty = (req, res) => {
 
 // Delete a propertyType with the specified propertyTypeId in the request
 exports.deleteProperty = (req, res) => {
-    Property.findByIdAndRemove(req.params.propertyTypeId)
+    property.findByIdAndRemove(req.params.propertyTypeId)
     .then(property => {
         if(!property) {
             return res.status(404).send({
