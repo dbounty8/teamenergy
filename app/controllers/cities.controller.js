@@ -1,4 +1,5 @@
 const Cities = require('../models/cities.model.js');
+const findNearestCity = require('../helpers/findNearestCity');
 
     // Create and Save a new Note
 exports.createCity = (req, res) => {
@@ -67,27 +68,11 @@ exports.findAllCities = (req, res) => {
 };
 
 exports.findNearestCity = (req, res) => {
-    console.log(req.params.longitude, req.params.latitude);
-    Cities.find(
-        { location:
-            { $nearSphere:
-                { $geometry:
-                    {
-                        type: "Point",
-                        coordinates: [ req.params.longitude, req.params.latitude ]
-                    },
-                    // $maxDistance: <distance in meters>,
-                    // $minDistance: <distance in meters>
-                }
-            }
-        }
-    ).limit(1)
-    .then(city =>{
-        res.send(city);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving city."
-        });
-    })
+    findNearestCity(req.params.lng, req.params.lat)
+        .then((city) => {
+            res.send(city);
+        })
+        .catch((error) => {
+            res.json({"error": error.message});
+        })
 };
