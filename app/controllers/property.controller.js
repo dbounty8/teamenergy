@@ -24,7 +24,7 @@ exports.createProperty = (req, res) => {
     });    
 
     // Save Property Type in the database
-    property.save()
+    Property.save()
     .then(data => {
         res.send(data);
     }).catch(err => {
@@ -36,7 +36,7 @@ exports.createProperty = (req, res) => {
 
 // Retrieve and return all Property Type from the database.
 exports.findAllProperty = (req, res) => {
-    property.find()
+    Property.find()
     .then(propertyTypes => {
         res.send(propertyTypes);
     }).catch(err => {
@@ -48,7 +48,7 @@ exports.findAllProperty = (req, res) => {
 
 // Find a single propertyType with a propertyTypeId
 exports.findOneProperty = (req, res) => {
-    property.findById(req.params.propertyTypeId)
+    Property.findById(req.params.propertyTypeId)
     .then(property => {
         if(!property) {
             return res.status(404).send({
@@ -104,7 +104,7 @@ exports.updateProperty = (req, res) => {
 
 // Delete a propertyType with the specified propertyTypeId in the request
 exports.deleteProperty = (req, res) => {
-    property.findByIdAndRemove(req.params.propertyTypeId)
+    Property.findByIdAndRemove(req.params.propertyTypeId)
     .then(property => {
         if(!property) {
             return res.status(404).send({

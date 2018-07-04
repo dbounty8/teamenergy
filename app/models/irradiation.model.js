@@ -13,4 +13,4 @@ const IrradiationSchema = mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Irradiation', IrradiationSchema);
+module.exports = mongoose.model('irradiations', IrradiationSchema);
