@@ -41,7 +41,7 @@ function getRandomInt(min, max) {
 
 // Retrieve and return all cities from the database.
 exports.findAllIrradiation = (req, res) => {
-    irradiation.find()
+    Irradiation.find()
     .then(irradiations => {
         res.send(irradiations);
     }).catch(err => {
@@ -53,7 +53,7 @@ exports.findAllIrradiation = (req, res) => {
   
 // Find a single irradiation with a propertyTypeId
 exports.findOneIrradiation = (req, res) => {
-irradiation.findById(req.params.irradiationID)
+Irradiation.findById(req.params.irradiationID)
 .then(data => {
     if(!data) {
         return res.status(404).send({
@@ -83,7 +83,7 @@ if(!req.body.content) {
 }
 
 // Find propertyType and update it with the request body
-irradiation.findByIdAndUpdate(req.params.irradiationID, {
+Irradiation.findByIdAndUpdate(req.params.irradiationID, {
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone,
@@ -112,7 +112,7 @@ irradiation.findByIdAndUpdate(req.params.irradiationID, {
 
 // Delete a propertyType with the specified propertyTypeId in the request
 exports.deleteIrradiation = (req, res) => {
-irradiation.findByIdAndRemove(req.params.irradiationID)
+Irradiation.findByIdAndRemove(req.params.irradiationID)
 .then(data => {
     if(!data) {
         return res.status(404).send({
