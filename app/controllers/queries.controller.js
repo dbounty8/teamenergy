@@ -39,7 +39,7 @@ exports.createQuery = (req, res) => {
 
 // Retrieve and return all Queries from the database.
 exports.findAllQueries = (req, res) => {
-  query.find()
+  Query.find()
   .then(data => {
       res.send(data);
   }).catch(err => {
@@ -51,7 +51,7 @@ exports.findAllQueries = (req, res) => {
 
 // Find a single Query with a propertyTypeId
 exports.findOneQuery = (req, res) => {
-  query.findById(req.params.queryID)
+  Query.findById(req.params.queryID)
   .then(data => {
       if(!data) {
           return res.status(404).send({
@@ -81,7 +81,7 @@ exports.updateQuery = (req, res) => {
   }
 
   // Find propertyType and update it with the request body
-  query.findByIdAndUpdate(req.params.queryID, {
+  Query.findByIdAndUpdate(req.params.queryID, {
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone,
@@ -110,7 +110,7 @@ exports.updateQuery = (req, res) => {
 
 // Delete a propertyType with the specified propertyTypeId in the request
 exports.deleteQuery = (req, res) => {
-  query.findByIdAndRemove(req.params.queryID)
+  Query.findByIdAndRemove(req.params.queryID)
   .then(data => {
       if(!data) {
           return res.status(404).send({
