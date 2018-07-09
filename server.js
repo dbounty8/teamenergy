@@ -37,6 +37,20 @@ mongoose.connect(dbConfig)
     process.exit();
 });
 
+
+app.use(function(req, res, next){
+    const whitelist = ['localhost:8080'];
+    const origin = req.headers.origin;
+  
+    whitelist.forEach(function(val, key){
+      if (origin.indexOf(val) > -1){
+        res.setHeader('Access-Control-Allow-Origin', origin);
+      }
+    })
+  
+    next();
+  });
+
 // Default route
 app.get('/', (req, res) => {
     res.json({"message": "Welcome to 123 Energy application. Keep track of all our queries."});
@@ -48,3 +62,4 @@ require('./app/routes/routes.js')(app);
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");
 });
+
