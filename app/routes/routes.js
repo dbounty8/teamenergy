@@ -40,7 +40,7 @@ module.exports = (app) => {
   // Retrieve all properties
   app.get('/property/:propertyTypeId', property.findOneProperty);
 
-  // Create a new Property Type
+  // Stores a new query submission
   app.post("/queries", queries.createQuery);
 
   // Update property data
