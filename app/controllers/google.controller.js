@@ -1,9 +1,10 @@
 const Axios = require('axios');
+const googleKey = process.env.GOOGLE_KEY;
 
 exports.getCoordinates = (req, res) => {
   const postcode = req.params.postcode;
   console.log(postcode);
-  Axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=AIzaSyAKlc9PNJR0EoHDL7zwtqZznYnoD7RPTnw`)
+  Axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=${googleKey}`)
     .then((response) => {
       res.send(response.data);
     })

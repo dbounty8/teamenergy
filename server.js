@@ -22,6 +22,9 @@ const path = require('path');
 require('dotenv').config({
     path: path.join(__dirname, './db.env'),
   });
+require('dotenv').config({
+    path: path.join(__dirname, './google.env'),
+  });
 const dbConfig = process.env.DB_CONNECTION;
 //mongoose.connect(process.env.DATABASE_CONN);
 const mongoose = require('mongoose');
