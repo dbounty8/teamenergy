@@ -1,4 +1,5 @@
 const Query = require('../models/queries.model.js');
+const sendEmail = require('../helpers/sendEmail');
 
 // Create and Save a new query
 exports.createQuery = (req, res) => {
@@ -29,6 +30,11 @@ exports.createQuery = (req, res) => {
     // Save Query in the database
     query.save()
     .then(data => {
+        const emailContent = `<p>Hi ${req.body.name},</p>
+            <p>Thanks for your enquiry. We will be in touch shortly.</p>
+            <p>Kind regards,</p>
+            <p>Team Energy</p>`;
+        sendEmail(req.body.email, "Thanks for your enquiry", emailContent);
         res.send(data);
     }).catch(err => {
         res.status(500).send({
